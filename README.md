@@ -148,25 +148,81 @@ Common parameters:
 
 **`Run the Snort instance and check the build number.`**
 
-(Run the above command to verify `Snort's` instance version)
+(Run the command above that verifies `Snort's` instance version)
 
 **`Test the current instance with "/etc/snort/snort.conf" file and check how many rules are loaded with the current build.`**
 
-(Run the above command to verify the configuration file, then scroll up until you see “`Snort rules read`”, as shown below)
+(Run the command above that validates the configuration file, then scroll up until you see “`Snort rules read`”, as shown below)
 
 ![image](https://github.com/user-attachments/assets/66043a10-7895-456e-a306-bfd281c2564d)
 
 **`Test the current instance with "/etc/snort/snortv2.conf" file and check how many rules are loaded with the current build.`**
 
-(Run the above command to verify the configuration file with “`snortv2.conf`”, and then scroll up until you see “`Snort rules read`”, as shown below)
+(Run the command above that validates the configuration file, this time with “`snortv2.conf`”, then scroll up until you see “`Snort rules read`”, as shown below)
 
 ![image](https://github.com/user-attachments/assets/a591c125-b648-4b06-b1fb-4ebddeceb167)
 
+## 🔶 Operation Mode 1: **Sniffer Mode**
 
+Like `tcpdump`, `Snort` has various flags/parameters capable of viewing various data about the packet it is ingesting.
 
+`-v` (Verbose, Display the TCP/IP output in the console)
 
+`-d` (Dump/Display the packet data (payload))
 
+`-e` (Display the link-layer (TCP/IP/UDP/ICMP) headers)
 
+`-X` (Display the full packet details in HEX)
+
+`-i` (This parameter helps to define a specific network interface to listen/sniff. Once you have multiple interfaces, you can choose a specific interface to sniff)
+
+Start using each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action.
+
+To do this, use the “`traffic-generator.sh`” script in the “`Task-Exercises`” folder.
+
+### ✅ Sniffing with "`-i`" Parameter
+
+Start the `Snort` instance in `verbose mode` (`-v`) and use the interface (`-i`) "`eth0`":
+
+🔹 *`sudo snort -v -i eth0`*
+
+In case you have only one interface, `Snort` uses it by default. The above example demonstrates to sniff on the interface named "`eth0`". Once you simulate the parameter `-v`, you will notice it will automatically use the "`eth0`" interface and prompt it.
+
+### ✅ Sniffing with "`-v`" Parameter
+
+Start the `Snort` instance in `verbose mode` (`-v`):
+
+🔹 *`sudo snort -v`*
+
+`Verbosity mode` provides `tcpdump` like output information. Once you interrupt the sniffing process with “`CTRL+C`”, it stops and summarizes the sniffed packets.
+
+### ✅ Sniffing with "`-d`" Parameter
+
+Start the `Snort` instance in `dumping packet data mode` (`-d`):
+
+🔹 *`sudo snort -d`*
+
+`Packet data payload mode` covers the `verbose mode` and provides more data.
+
+### ✅ Sniffing with "`-de`" Parameter
+
+Start the `Snort` instance in dump (`-d`) and `link-layer header grabbing` (`-e`) mode:
+
+🔹 *`sudo snort -de`*
+
+`Packet data payload mode` and `link-layer header grabbing mode`, controls how much detail is printed about each packet to the console or log.
+
+`-d`: Dump the `application layer data (payload)` of packets in `hex` and `ASCII`. This allows you to see the actual data being transmitted.
+
+`-e`: Show the `data link layer headers` (such as Ethernet headers) in the packet output.
+
+### ✅ Sniffing with "`-X`" Parameter
+
+Start the `Snort` instance in `full packet dump mode` (`-X`):
+
+🔹 *`sudo snort -X`*
+
+Used to `dump the raw packet payload` in both `hex` and `ASCII`. It’s similar to `-d`, but more detailed in output formatting.
 
 
 
