@@ -42,7 +42,7 @@ The machine is offline, but there is a script `“traffic-generator.sh”` for y
 
 **Note:** Each traffic is designed for a specific exercise. Make sure you start the `Snort` instance and wait until the end of the script execution. Don't stop the traffic flood unless you choose the wrong exercise. 
 
-As shown below, explore the current directory environment and navigate to the `“Task-Exercises”` folder. Run the `"traffic-generator.sh"` file by executing it as `sudo`. A `“Traffic Generator”` menu with traffic pattern options will appear.
+As shown below, explore the current directory environment and navigate to the `“Task-Exercises”` folder. Run the `"traffic-generator.sh"` file by executing it as `sudo`. The `“Traffic Generator”` menu with traffic pattern options will appear.
 
 ![image](https://github.com/user-attachments/assets/340603d7-c2de-4019-bfcc-885e060bc555)
 
@@ -164,65 +164,129 @@ Common parameters:
 
 ## 🔶 Operation Mode 1: **Sniffer Mode**
 
+![image](https://github.com/user-attachments/assets/06934686-a950-469d-86ae-5fc845bb8091)
+
 Like `tcpdump`, `Snort` has various flags/parameters capable of viewing various data about the packet it is ingesting.
 
-`-v` (Verbose, Display the TCP/IP output in the console)
+(`-v`) -- Verbose, Display the TCP/IP output in the console.
 
-`-d` (Dump/Display the packet data (payload))
+(`-d`) -- Dump/Display the packet data (payload).
 
-`-e` (Display the link-layer (TCP/IP/UDP/ICMP) headers)
+(`-e`) -- Display the link-layer (TCP/IP/UDP/ICMP) headers.
 
-`-X` (Display the full packet details in HEX)
+(`-X`) -- Display the full packet details in HEX.
 
-`-i` (This parameter helps to define a specific network interface to listen/sniff. Once you have multiple interfaces, you can choose a specific interface to sniff)
+(`-i`) -- This parameter helps to define a specific network interface to listen/sniff. Once you have multiple interfaces, you can choose a specific interface to sniff.
 
 Start using each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action.
 
 To do this, use the “`traffic-generator.sh`” script in the “`Task-Exercises`” folder.
 
-### ✅ Sniffing with "`-i`" Parameter
+### ✅ Sniffing with Parameter (`-i`)
 
 Start the `Snort` instance in `verbose mode` (`-v`) and use the interface (`-i`) "`eth0`":
 
 🔹 *`sudo snort -v -i eth0`*
 
-In case you have only one interface, `Snort` uses it by default. The above example demonstrates to sniff on the interface named "`eth0`". Once you simulate the parameter `-v`, you will notice it will automatically use the "`eth0`" interface and prompt it.
+In case you have only one interface, `Snort` uses it by default. The above example demonstrates to sniff on the interface named "`eth0`". Once you simulate the parameter (`-v`), you will notice it will automatically use the "`eth0`" interface and prompt it.
 
-### ✅ Sniffing with "`-v`" Parameter
+### ✅ Sniffing with Parameter (`-v`)
 
 Start the `Snort` instance in `verbose mode` (`-v`):
 
 🔹 *`sudo snort -v`*
 
+Now run the “`traffic-generator.sh`” script as *`sudo`* and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start showing the  packets in `verbosity mode`.
+
 `Verbosity mode` provides `tcpdump` like output information. Once you interrupt the sniffing process with “`CTRL+C`”, it stops and summarizes the sniffed packets.
 
-### ✅ Sniffing with "`-d`" Parameter
+### ✅ Sniffing with Parameter (`-d`)
 
 Start the `Snort` instance in `dumping packet data mode` (`-d`):
 
 🔹 *`sudo snort -d`*
 
+Now run the “`traffic-generator.sh`” script as *`sudo`* and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start showing the  packets in `verbosity mode`.
+
 `Packet data payload mode` covers the `verbose mode` and provides more data.
 
-### ✅ Sniffing with "`-de`" Parameter
+### ✅ Sniffing with Parameter (`-de`)
 
 Start the `Snort` instance in dump (`-d`) and `link-layer header grabbing` (`-e`) mode:
 
 🔹 *`sudo snort -de`*
 
+Now run the “`traffic-generator.sh`” script as *`sudo`* and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start showing the  packets in `verbosity mode`.
+
 `Packet data payload mode` and `link-layer header grabbing mode`, controls how much detail is printed about each packet to the console or log.
 
-`-d`: Dump the `application layer data (payload)` of packets in `hex` and `ASCII`. This allows you to see the actual data being transmitted.
+(`-d`): Dump the `application layer data (payload)` of packets in `hex` and `ASCII`. This allows you to see the actual data being transmitted.
 
-`-e`: Show the `data link layer headers` (such as Ethernet headers) in the packet output.
+(`-e`): Show the `data link layer headers` (such as Ethernet headers) in the packet output.
 
-### ✅ Sniffing with "`-X`" Parameter
+### ✅ Sniffing with Parameter (`-X`)
 
 Start the `Snort` instance in `full packet dump mode` (`-X`):
 
 🔹 *`sudo snort -X`*
 
-Used to `dump the raw packet payload` in both `hex` and `ASCII`. It’s similar to `-d`, but more detailed in output formatting.
+Now run the “`traffic-generator.sh`” script as *`sudo`* and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start showing the  packets in `verbosity mode`.
+
+Used to `dump the raw packet payload` in both `hex` and `ASCII`. It’s similar to (`-d`), but more detailed in output formatting.
+
+## 🔶 Operation Mode 2: **Packet Logger Mode**
+
+![image](https://github.com/user-attachments/assets/96918fcf-10c1-4e67-963c-889ec43655fd)
+
+You can use `Snort` as a sniffer and log the sniffed packets via logger mode. You only need to use the packet logger mode parameters. 
+
+(`-l`) -- Logger mode, target log and alert output directory. Default output folder is `/var/log/snort`. The default action is to dump as `tcpdump` format in `/var/log/snort`.
+
+(`-K ASCII`) -- Log packets in `ASCII` format.
+
+(`-r`) -- Reading option, read the dumped logs in `Snort`.
+
+(`-n`) -- Specify the number of packets that will process/read. `Snort` will stop after reading the specified number of packets.
+
+Start using each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action.
+
+To do this, use the “`traffic-generator.sh`” script in the “`Task-Exercises`” folder.
+
+### ✅ Logfile Ownership
+
+`Snort` needs `superuser` "`root`" rights to sniff the traffic, so once you run `Snort` with the "*`sudo`*" command, the "`root`" account will own the generated log files. Therefore you will need "`root`" rights to investigate the log files. 
+
+There are two different approaches to investigate the generated log files: 
+
+•	`Elevation of privileges` - You can elevate your privileges to examine the files. You can use "*`sudo`*" to execute your command as a `superuser`: *`sudo <command>`*. You can also elevate the session privileges and switch to the `superuser` account to examine the generated log files with the following command: *`sudo su`*
+
+•	`Changing the ownership of files/directories` - You can also change the ownership of the file/folder to read it as your user: *`sudo chown <username> <file>`* or *`sudo chown username -R <directory>`*. The (`-R`) parameter helps recursively process the files and directories.
+
+### ✅ Logging with Parameter (`-l`)
+
+First, start the Snort instance in packet logger mode: 
+
+🔹 *`sudo snort -dev -l .`*
+
+**Note:** Don’t forget the period (`.`) at the end of the command.
+
+Now run the “`traffic-generator.sh`” script as *`sudo`* and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start showing the  packets in `verbosity mode`.
+
+Once the traffic is generated, `Snort` will start showing the packets and log them in the target directory. You can configure the default output directory in the `snort.config` file. However, you can use the (`-l`) parameter to set a target directory. Identifying the default log directory is useful for continuous monitoring operations, and the (`-l`) parameter is much more useful for testing purposes. 
+
+The (`-l .`) part of the command creates the logs in the current directory.
+
+![image](https://github.com/user-attachments/assets/54d6406b-d591-4f27-be7b-95d3fc49b06e)
+
+Now, check the generated log file. Note that the log file names will be different in your case.
+
+![image](https://github.com/user-attachments/assets/aaf12fdc-f933-4c27-a822-3a94e5a83e4d)
+
+### ✅ Logging with Parameter (`-K ASCII`)
+
+
+
+
 
 
 
