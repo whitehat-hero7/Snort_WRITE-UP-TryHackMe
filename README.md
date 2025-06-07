@@ -264,7 +264,7 @@ There are two different approaches to investigate the generated log files:
 
 ### ✅ Logging with Parameter (`-l`)
 
-First, start the Snort instance in packet logger mode: 
+First, start the `Snort` instance in packet logger mode: 
 
 🔹 *`sudo snort -dev -l .`*
 
@@ -284,8 +284,65 @@ Now, check the generated log file. Note that the log file names will be differen
 
 ### ✅ Logging with Parameter (`-K ASCII`)
 
+Start the `Snort` instance in packet logger mode: 
 
+🔹 *`sudo snort -dev -K ASCII -l .`*
 
+Now run the “`traffic-generator.sh`” script as *`sudo`* and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start showing the  packets in `verbosity mode`.
+
+![image](https://github.com/user-attachments/assets/deec7aea-7ea0-4e35-b4c8-1383ec9d21fa)
+
+Now, check the generated log file. Note that the log file names will be different in your case.
+
+![image](https://github.com/user-attachments/assets/ad7ba627-6099-4f87-a9fa-ffc1f172426e)
+
+The logs created with (`-K ASCII`) parameter is entirely different. There are two folders with IP address names. Look into them:
+
+![image](https://github.com/user-attachments/assets/e4e13ba0-3fb6-493c-a6bd-44bf46ea0f12)
+
+Once you look closer at the created folders, you can see that the logs are in `ASCII` and categorized format, so it is possible to read them without using a `Snort` instance.
+
+This is what it looks like in the folder view:
+
+![image](https://github.com/user-attachments/assets/81709562-b87b-4bbf-9c0a-d62c0df7302e)
+
+In a nutshell, `ASCII` mode provides multiple files in human-readable format, so it is possible to read the logs easily by using a text editor. By contrast with `ASCII` format, `binary` format is not human-readable and requires analysis using `Snort` or an application like `tcpdump`.
+
+You can compare the `ASCII` format with the `binary` format by opening both in a text editor. The difference between the `binary` log file and the `ASCII` log file is shown below. (Left side: `binary` format. Right side: `ASCII` format):
+
+![image](https://github.com/user-attachments/assets/353c4a4f-0059-46d2-b0d1-0791f721c115)
+
+### ✅ Reading Generated Logs with Parameter (`-r`)
+
+Start the `Snort` instance in packet reader mode:
+
+🔹 *`sudo snort -r <logname.log>`*
+
+![image](https://github.com/user-attachments/assets/38c06563-5a4a-4e89-83cf-7322697f3258)
+
+Note that `Snort` can read and handle the `binary` like output (`tcpdump` and `Wireshark` also can handle this log format). However, if you create logs with (`-K ASCII`) parameter, `Snort` will not read them. `Snort` will read and display the log file just like in the `sniffer` mode.
+
+Opening log file with `tcpdump`:
+
+![image](https://github.com/user-attachments/assets/18fc7ba4-9e3c-4a81-8cdb-de5cb613712a)
+
+Opening log file with `Wireshark`:
+
+![image](https://github.com/user-attachments/assets/2502d082-3e7d-40ca-a69d-6310eca1c056)
+
+(`-r`) parameter also allows users to filter the `binary` log files. You can filter the processed log to see specific packets with the (`-r`) parameter and `Berkeley Packet Filters` (`BPF`). 
+
+🔹 *`sudo snort -r <logname.log> -X`*
+
+🔹 *`sudo snort -r <logname.log> icmp`*
+
+🔹 *`sudo snort -r <logname.log> tcp`*
+
+🔹 *`sudo snort -r <logname.log> 'udp and port 53'`*
+
+The output will be the same as the above, but only packets with the chosen protocol will be shown. Additionally, you can specify the number of processes with the parameter (`-n`). The following command will process only the first 10 packets:
+
+🔹 *`sudo snort -dvr <logname.log> -n 10`*
 
 
 
