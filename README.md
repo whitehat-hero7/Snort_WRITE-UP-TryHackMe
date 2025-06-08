@@ -344,6 +344,28 @@ The output will be the same as the above, but only packets with the chosen proto
 
 🔹 *`sudo snort -dvr <logname.log> -n 10`*
 
+### ✅ Questions:
+
+Now, use the attached `VM` and navigate to the `Task-Exercises/Exercise-Files/TASK-6` folder to answer the questions!
+
+![image](https://github.com/user-attachments/assets/15ff8150-79b4-4079-92de-7ce94848eb70)
+
+Investigate the traffic with the default configuration file with `ASCII` mode.
+
+🔹 *`sudo snort -dev -K ASCII -l .`*
+
+![image](https://github.com/user-attachments/assets/be4f3124-dc51-4912-8677-3cbc1a336eb0)
+
+Open another tab and navigate to the “`Task-Exercises`”, then execute the `traffic generator` script and choose "`TASK-6 Exercise`", as shown below. Wait until the traffic ends, then stop the `Snort` instance with “`CTRL+C`”. Now analyze the output summary and answer the question.
+
+🔹 *`sudo ./traffic-generator.sh`*
+
+![image](https://github.com/user-attachments/assets/c6ad22f1-c941-4e40-b2ca-a502641193fd)
+
+
+
+
+
 
 
 
