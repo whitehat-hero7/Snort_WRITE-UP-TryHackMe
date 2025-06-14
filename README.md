@@ -354,13 +354,167 @@ Investigate the traffic with the default configuration file with `ASCII` mode.
 
 🔹 *`sudo snort -dev -K ASCII -l .`*
 
-![image](https://github.com/user-attachments/assets/be4f3124-dc51-4912-8677-3cbc1a336eb0)
+![image](https://github.com/user-attachments/assets/06143adc-7597-471e-b9b0-38f9f38c5f10)
 
 Open another tab and navigate to the “`Task-Exercises`”, then execute the `traffic generator` script and choose "`TASK-6 Exercise`", as shown below. Wait until the traffic ends, then stop the `Snort` instance with “`CTRL+C`”. Now analyze the output summary and answer the question.
 
 🔹 *`sudo ./traffic-generator.sh`*
 
 ![image](https://github.com/user-attachments/assets/c6ad22f1-c941-4e40-b2ca-a502641193fd)
+
+**`Now, you should have the logs in the current directory. Navigate to folder "145.254.160.237". What is the source port used to connect port 53?`**
+
+![image](https://github.com/user-attachments/assets/5f506f3b-f23e-4178-a006-a338c36f3477)
+
+![image](https://github.com/user-attachments/assets/e577a769-56e9-4034-97d3-f32641a793a3)
+
+**`Use snort.log.1640048004 
+Read the snort.log file with Snort; what is the IP ID of the 10th packet?`**
+
+🔹 *`snort -r snort.log.1640048004 -n 10`*
+
+![image](https://github.com/user-attachments/assets/ca12bdcc-a936-44b0-a2b7-3ca1e5b26065)
+
+(Scroll up to the `10th packet` to get its ID)
+
+![image](https://github.com/user-attachments/assets/c81cc9bf-6ad5-475c-bb39-e2452e96eb56)
+
+**`Read the "snort.log.1640048004" file with Snort; what is the referer of the 4th packet?`**
+
+![image](https://github.com/user-attachments/assets/7c68cad4-bf54-4e52-9587-b81d8aae4238)
+
+(Scroll up to the `4th packet` to get the referer)
+
+![image](https://github.com/user-attachments/assets/402c2de0-a03c-4fd5-90e9-de97f139f8e5)
+
+**`Read the "snort.log.1640048004" file with Snort; what is the Ack number of the 8th packet?`**
+
+![image](https://github.com/user-attachments/assets/acea19b1-20ca-4941-813b-f34117bb08ea)
+
+(Scroll up to the `8th packet` to get the Ack number)
+
+![image](https://github.com/user-attachments/assets/3cdcefb3-ad1f-40ae-a551-44ea0d7ff3de)
+
+**`Read the "snort.log.1640048004" file with Snort; what is the number of the "TCP port 80" packets?`**
+
+**Note:** We are not looking at a specific number of packets anymore with “`-n`”.
+
+![image](https://github.com/user-attachments/assets/6a549a0f-007e-42e1-92c2-a116faa69a5f)
+
+![image](https://github.com/user-attachments/assets/eb21be80-3172-46f4-9d2c-6762e045ee1c)
+
+## 🔶 Operation Mode 3: **IDS/IPS**
+
+![image](https://github.com/user-attachments/assets/524d4df8-7537-4bb5-9aa0-89c3a2cd2105)
+
+The capability of `Snort` is not limited to `sniffing` and `logging` the traffic. `IDS/IPS` mode helps you manage the traffic according to user-defined rules.
+
+**Note:** `(N)IDS/IPS` mode depends on the rules and configuration. `TASK-10` summarizes the essential paths, files and variables. Also, `TASK-3` covers configuration testing. Here, we need to understand the operating logic first, and then we will be going into rules in `TASK-9`.
+
+### ✅ Let’s Run Snort in IDS/IPS Mode
+
+`NIDS` mode parameters are explained below:
+
+(`-c`) -- Defines the configuration file.
+
+(`-T`) -- Tests the configuration file.
+
+(`-N`) -- Disable logging.
+
+(`-D`) -- Background mode.
+
+(`-A`) -- Alert modes:
+
+**`full`:** `Full alert` mode, providing all possible information about the alert. This one also is the default mode; once you use (`-A`) and don't specify any mode, `Snort` uses this mode.
+
+**`fast`:** `Fast` mode shows the alert message, timestamp, source and destination IP, along with port numbers.
+
+**`console`:** Provides fast style alerts on the console screen.
+
+**`cmg`:** `CMG` style, basic header details with payload in `hex` and `text` format.
+
+**`none`:** `Disabling alerting`.
+
+Use each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action. To do this, use the "`traffic-generator.sh`" script in the "`Task-Exercises`" folder. 
+
+Once you start running `IDS/IPS` mode, you need to use rules. Using a pre-defined `ICMP` rule as an example. The defined rule below will only generate alerts in any direction of `ICMP` packet activity.
+
+*`alert icmp any any <> any any  (msg: "ICMP Packet Found"; sid: 100001; rev:1;)`*
+
+This rule is located in **`/etc/snort/rules/local.rules`**
+
+This module will focus only on the operating modes. `Snort` will create an "`alert`" file if the traffic flow triggers an alert. One last note; once you start running `IDS/IPS` mode, the `sniffing` and `logging` mode will be semi-passive. However, you can activate the functions using the parameters discussed in previous tasks. **`(-i, -v, -d, -e, -X, -l, -K ASCII)`**.
+
+### ✅ IDS/IPS Mode with Parameter (`-c` and `-T`)
+
+🔹 *`sudo snort -c /etc/snort/snort.conf -T`*
+
+This command will check your configuration file and prompt it if there is any misconfiguration in your current setting.
+
+### ✅ IDS/IPS Mode with Parameter (`-N`)
+
+Start the `Snort` instance and `disable logging` by running the following command:
+
+🔹 *`sudo snort -c /etc/snort/snort.conf -N`*
+
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. This command will `disable logging` mode. The rest of the other functions will still be available (if activated).
+
+The command-line output will provide the information requested with the parameters. So, if you activate `verbosity` (`-v`) or `full packet dump` (`-X`) you will still have the output in the console, but there will be no logs in the log folder.
+
+### ✅ IDS/IPS Mode with Parameter (`-D`)
+
+Start the `Snort` instance in `background` mode with the following command:
+
+🔹 *`sudo snort -c /etc/snort/snort.conf -D`*
+
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start processing the packets and accomplish the given task with additional parameters.
+
+![image](https://github.com/user-attachments/assets/dd4ffb08-9c68-47b7-a059-dc093c722653)
+
+The command-line output will provide the information requested with the parameters. So, if you activate `verbosity` (`-v`) or `full packet dump` (`-X`) with `packet logger` mode (`-l`) you will still have the logs in the logs folder, but there will be no output in the console.
+
+Once you start the `background` mode and want to check the corresponding `process`, you can easily use the "`ps`" command as shown below:
+
+![image](https://github.com/user-attachments/assets/66f7a635-0a84-4a5d-957d-6b87b8f891e6)
+
+If you want to stop the `daemon`, you can easily use the "`kill`" command to stop the process.
+
+![image](https://github.com/user-attachments/assets/aa7ed057-0629-47f0-8d76-f6f57bfba7ab)
+
+Note that `daemon` mode is mainly used to automate `Snort`. This parameter is mainly used in scripts to start the `Snort` service in the `background`. It is not recommended to use this mode unless you have a working knowledge of `Snort` and stable configuration.
+
+### ✅ IDS/IPS Mode with Parameter (`-A`)
+
+There are several alert modes available in `Snort`:
+
+`console` -- Provides fast style alerts on the console screen.
+
+`cmg`-- Provides basic header details with payload in `hex` and `text` format.
+
+`full`-- `Full alert` mode, providing all possible information about the alert.
+
+`fast`-- `Fast` mode, shows the alert message, timestamp, source and destination ıp along with port numbers.
+
+`none`-- Disabling alerting.
+
+In this section, only the "`console`" and "`cmg`" parameters provide alert information in the `console`. It is impossible to identify the difference between the rest of the alert modes via `terminal`. Differences can be identified by looking at generated `logs`. 
+
+"`full`", "`fast`" and "`none`" modes don't provide `console` output, so differences should be identified through `log` formats.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
