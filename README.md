@@ -501,15 +501,43 @@ In this section, only the "`console`" and "`cmg`" parameters provide alert infor
 
 "`full`", "`fast`" and "`none`" modes don't provide `console` output, so differences should be identified through `log` formats.
 
+### ✅ IDS/IPS Mode with Parameter (`-A console`)
 
+`Console` mode provides fast style alerts on the console screen. Start the `Snort` instance in `console alert` mode (`-A console`) with the following command:
 
+🔹 *`sudo snort -c /etc/snort/snort.conf -A console`*
 
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start generating alerts according to the provided ruleset defined in the `configuration file`. 
 
+![image](https://github.com/user-attachments/assets/b62b3e79-1477-44d8-b88c-2c23ba6887c3)
 
+### ✅ IDS/IPS Mode with Parameter (`-A cmg`)
 
+`Cmg` mode provides basic header details with payload in `hex` and `text` format. Start the `Snort` instance in `cmg alert` mode (`-A cmg`) with the following command:
 
+🔹 *`sudo snort -c /etc/snort/snort.conf -A cmg`*
 
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start generating alerts according to the provided ruleset defined in the `configuration file`. 
 
+![image](https://github.com/user-attachments/assets/07540f99-61ac-40eb-967a-eb7a86876927)
+
+Compare the `console` and `cmg` outputs before moving on to other alarm types. As you can see in the given outputs above, `console` mode provides basic header and rule information. `Cmg` mode provides full packet details along with rule information. 
+
+### ✅ IDS/IPS Mode with Parameter (`-A fast`)
+
+`Fast` mode provides alert messages, timestamps, and source and destination IP addresses. Remember, there is no `console` output in this mode. Start the `Snort` instance in `fast alert` mode (`-A fast`) with the following command:
+
+🔹 *`sudo snort -c /etc/snort/snort.conf -A fast`*
+
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start generating alerts according to the provided ruleset defined in the `configuration file`. 
+
+![image](https://github.com/user-attachments/assets/cd36b956-345c-4b3e-b0c9-b582884c8569)
+
+Check the alarm file:
+
+![image](https://github.com/user-attachments/assets/e660fc0b-cfed-4cc4-820c-60c43b6e0146)
+
+As seen above, `fast` style alerts contain summary information on the action like direction and alert header.
 
 
 
