@@ -539,6 +539,25 @@ Check the alarm file:
 
 As seen above, `fast` style alerts contain summary information on the action like direction and alert header.
 
+### ✅ IDS/IPS Mode with Parameter (`-A full`)
+
+`Full` alert mode provides all possible information about the alert. Remember, there is no `console` output in this mode. Start the `Snort` instance in `full` alert mode (`-A full`) with the following command:
+
+🔹 *`sudo snort -c /etc/snort/snort.conf -A full`*
+
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start generating alerts according to the provided ruleset defined in the `configuration file`. 
+
+![image](https://github.com/user-attachments/assets/3486becb-cf79-464a-a29f-13605944369a)
+
+Check the alarm file:
+
+![image](https://github.com/user-attachments/assets/0cf065cf-061e-4ffc-9ac4-1ba32289c928)
+
+ As seen above, `full` style alerts contain all possible information on the action.
+
+### ✅ IDS/IPS Mode with Parameter (`-A none`)
+
+
 
 
 
