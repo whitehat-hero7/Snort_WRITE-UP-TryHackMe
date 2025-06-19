@@ -92,11 +92,11 @@ During training, the system learns to distinguish “`normal`” from “`abnorm
 
 There are three main detection and prevention techniques used in `IDS` and `IPS` solutions:
 
-•	`Signature-Based` - this technique relies on rules that identify the specific patterns of the known malicious behavior. This model helps detect known threats.
-
-•	`Behavior-Based` - this technique identifies new threats with new patterns that pass-through signatures. The model compares the known/normal with unknown/abnormal behaviours. This model helps detect previously unknown or new threats.
-
-•	`Policy-Based` - this technique compares detected activities with system configuration and security policies. This model helps detect policy violations.
+| **Technique** | **Approach** |
+|-|-|
+| `Signature-Based` | This technique relies on rules that identify the specific patterns of the known malicious behavior. This model helps detect known threats. |
+| `Behavior-Based` | This technique identifies new threats with new patterns that pass-through signatures. The model compares the known/normal with unknown/abnormal behaviours. This model helps detect previously unknown or new threats. |
+| `Policy-Based` | This technique compares detected activities with system configuration and security policies. This model helps detect policy violations. |
 
 ### ✅ Questions:
 
@@ -136,13 +136,12 @@ The configuration file is an all-in-one management file of `Snort`. Rules, plugi
 
 Common parameters:
 
-`-V` (Provides information about current `Snort` instance version)
-
-`-c` (Identifies the configuration file)
-
-`-T` (`Snort’s` self-test parameter, you can test your setup with this parameter)
-
-`-q` (Quiet mode prevents `Snort` from displaying the default banner and initial information about your setup)
+| **Parameter** | **Description** |
+|-|-|
+| *`-V`* | Provides information about current `Snort` instance version. |
+| *`-c`* | Identifies the configuration file. |
+| *`-T`* | `Snort’s` self-test parameter, you can test your setup with this parameter. |
+| *`-q`* | Quiet mode prevents `Snort` from displaying the default banner and initial information about your setup. |
 
 ### ✅ Questions:
 
@@ -168,15 +167,15 @@ Common parameters:
 
 Like `tcpdump`, `Snort` has various flags/parameters capable of viewing various data about the packet it is ingesting.
 
-(`-v`) -- Verbose, Display the TCP/IP output in the console.
+`Sniffer` mode parameters are explained in the table below:
 
-(`-d`) -- Dump/Display the packet data (payload).
-
-(`-e`) -- Display the link-layer (TCP/IP/UDP/ICMP) headers.
-
-(`-X`) -- Display the full packet details in HEX.
-
-(`-i`) -- This parameter helps to define a specific network interface to listen/sniff. Once you have multiple interfaces, you can choose a specific interface to sniff.
+| **Parameter** | **Description** |
+|-|-|
+| *`-v`* | Verbose, Display the TCP/IP output in the console. |
+| *`-d`* | Dump/Display the packet data (payload). |
+| *`-e`* | Display the link-layer (TCP/IP/UDP/ICMP) headers. |
+| *`-X`* | Display the full packet details in HEX. |
+| *`-i`* | This parameter helps to define a specific network interface to listen/sniff. Once you have multiple interfaces, you can choose a specific interface to sniff. |
 
 Start using each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action.
 
@@ -238,15 +237,16 @@ Used to `dump the raw packet payload` in both `hex` and `ASCII`. It’s similar 
 
 ![image](https://github.com/user-attachments/assets/96918fcf-10c1-4e67-963c-889ec43655fd)
 
-You can use `Snort` as a sniffer and log the sniffed packets via logger mode. You only need to use the packet logger mode parameters. 
+You can use `Snort` as a sniffer and log the sniffed packets via logger mode. You only need to use the packet logger mode parameters.
 
-(`-l`) -- Logger mode, target log and alert output directory. Default output folder is `/var/log/snort`. The default action is to dump as `tcpdump` format in `/var/log/snort`.
+`Packet` logger parameters are explained in the table below:
 
-(`-K ASCII`) -- Log packets in `ASCII` format.
-
-(`-r`) -- Reading option, read the dumped logs in `Snort`.
-
-(`-n`) -- Specify the number of packets that will process/read. `Snort` will stop after reading the specified number of packets.
+| **Parameter** | **Description** |
+|-|-|
+| *`-l`* | Logger mode, target log and alert output directory. Default output folder is `/var/log/snort`. The default action is to dump as `tcpdump` format in `/var/log/snort`. |
+| *`-K ASCII`* | Log packets in `ASCII` format. |
+| *`-r`* | Reading option, read the dumped logs in `Snort`. |
+| *`-n`*| Specify the number of packets that will process/read. `Snort` will stop after reading the specified number of packets. |
 
 Start using each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action.
 
@@ -413,27 +413,20 @@ The capability of `Snort` is not limited to `sniffing` and `logging` the traffic
 
 ### ✅ Let’s Run Snort in IDS/IPS Mode
 
-`NIDS` mode parameters are explained below:
+`NIDS` mode parameters are explained in the table below:
 
-(`-c`) -- Defines the configuration file.
-
-(`-T`) -- Tests the configuration file.
-
-(`-N`) -- Disable logging.
-
-(`-D`) -- Background mode.
-
-(`-A`) -- Alert modes:
-
-**`full`:** `Full alert` mode, providing all possible information about the alert. This one also is the default mode; once you use (`-A`) and don't specify any mode, `Snort` uses this mode.
-
-**`fast`:** `Fast` mode shows the alert message, timestamp, source and destination IP, along with port numbers.
-
-**`console`:** Provides fast style alerts on the console screen.
-
-**`cmg`:** `CMG` style, basic header details with payload in `hex` and `text` format.
-
-**`none`:** `Disabling alerting`.
+| **Parameter** | **Description** |
+|-|-|
+| *`-c`* | Defines the configuration file. |
+| *`-T`* | Tests the configuration file. |
+| *`-N`* | Disable logging. |
+| *`-D`* | Background mode. |
+| *`-A`* | Alert modes: 
+| | **`full`:** `Full alert` mode, providing all possible information about the alert. This one also is the default mode; once you use (`-A`) and don't specify any mode, `Snort` uses this mode. |
+| | **`fast`:** `Fast` mode shows the alert message, timestamp, source and destination IP, along with port numbers. |
+| | **`console`:** Provides fast style alerts on the console screen. |
+| | **`cmg`:** `CMG` style, basic header details with payload in `hex` and `text` format. |
+| | **`none`:** `Disabling alerting`. |
 
 Use each parameter and see the difference between them. `Snort` needs active traffic on your interface, so you need to generate traffic to see `Snort` in action. To do this, use the "`traffic-generator.sh`" script in the "`Task-Exercises`" folder. 
 
@@ -557,7 +550,81 @@ Check the alarm file:
 
 ### ✅ IDS/IPS Mode with Parameter (`-A none`)
 
+`Disable alerting`. This mode doesn't create the `alert file`. However, it still logs the traffic and creates a `log file` in `binary dump format`. Remember, there is no `console` output in this mode. Start the `Snort` instance in `none alert mode` (`-A none`) with the following command:
 
+🔹 *`sudo snort -c /etc/snort/snort.conf -A none`*
+
+Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic. Once the traffic is generated, `Snort` will start generating alerts according to the provided ruleset defined in the `configuration file`. 
+
+![image](https://github.com/user-attachments/assets/32953d8c-4af1-4294-bc05-bca5517c4408)
+
+As seen in the picture below, there is no `alert file`. `Snort` only generated the `log file`.
+
+![image](https://github.com/user-attachments/assets/141147a6-b789-4fa6-8d18-d02143e70bed)
+
+### ✅ IDS/IPS Mode: “Using rule file without configuration file”
+
+It is possible to run `Snort` only with rules without a `configuration file`. Running the `Snort` in this mode will help you test the user-created rules. However, this mode will provide less performance.
+
+![image](https://github.com/user-attachments/assets/838bfcde-98a5-41b8-8ccf-2ca43ae53a98)
+
+### ✅ IPS Mode and Dropping Packets
+
+`Snort` `IPS mode` activated with *`-Q --daq afpacket`* parameters. You can also activate this mode by editing **`snort.conf`** file. However, you don't need to edit **`snort.conf`** file in the scope of this room. Review the bonus task or `Snort` manual for further information on `daq` and advanced configuration settings: *`-Q --daq afpacket`*
+
+Activate the `Data Acquisition (DAQ)` modules and use the `afpacket` module to use `Snort` as an `IPS`: *`-i eth0:eth1`*
+
+Identifying interfaces note that `Snort` `IPS` requires at least two interfaces to work. Now run the "`traffic-generator.sh`" script as `sudo` and start `ICMP/HTTP` traffic.
+
+![image](https://github.com/user-attachments/assets/a4b539ce-6191-4d60-af7d-8f3a268c72e9)
+
+As seen above, `Snort` blocked the packets this time. We used the same rule with a different action (`drop/reject`). Remember, for the scope of this task; our point is the operating mode, not the rule.
+
+### ✅ Questions:
+
+Investigate the traffic with the default configuration file.
+
+*`sudo snort -c /etc/snort/snort.conf -A full -l .`*
+
+![image](https://github.com/user-attachments/assets/8fb300a9-86d5-4605-b885-d30b9c90c18d)
+
+Open another tab and execute the traffic generator script and choose "`TASK-7 Exercise`". Wait until the traffic stops, then stop the `Snort` instance with "`CTRL+C`". Now analyze the output summary and answer the question.
+
+![image](https://github.com/user-attachments/assets/cd4b637a-7604-449a-bf17-9b7f8f6ffa05)
+
+**`What is the number of the detected HTTP GET methods?`**
+
+(Scroll up and analyze the output summary, search for the `HTTP GET methods`)
+
+![image](https://github.com/user-attachments/assets/44336424-7433-45f3-950b-da671b36de18)
+
+## 🔶 Operation Mode 4: **PCAP Investigation**
+
+Capabilities of `Snort` are not limited to `sniffing`, `logging` and detecting/preventing the threats. `PCAP` read/investigate mode helps you work with `PCAP` files. Once you have a `PCAP` file and process it with `Snort`, you will receive default traffic statistics with alerts depending on your ruleset.
+
+Reading a `PCAP` without using any additional parameters discussed before will only overview the packets and provide statistics about the file. In most cases, this is not very handy. We are investigating the `PCAP` with `Snort` to benefit from the rules and speed up our investigation process by using the known patterns of threats. 
+
+Note that we are close to starting to create rules. Therefore, you need to grasp the working mechanism of the `Snort`, learn the discussed parameters and begin combining the parameters for different purposes.
+
+`PCAP` mode parameters are explained below:
+
+| **Parameter** | **Description** |
+|-|-|
+| *`-r / --pcap-single=`* | Read a single PCAP |
+| *`--pcap-list=""`* | Read PCAPs provided in command (sapce separated) |
+| *`--pcap-show`* | Show PCAP name on console during processing |
+
+### ✅ Investigating single PCAP with parameter “-r”
+
+For test purposes, you can still test the default reading option with `PCAP` by using the following command:
+
+🔹 *`snort -r icmp-test.pcap`*
+
+Investigate the `PCAP` with the `configuration file` and see what will happen, as shown below.
+
+![image](https://github.com/user-attachments/assets/28bd15e8-ae51-4abd-a820-43e16d5e6183)
+
+The `ICMP` rule got a hit! As seen in the output given, `Snort` identified the traffic and prompted the alerts according to the ruleset.
 
 
 
