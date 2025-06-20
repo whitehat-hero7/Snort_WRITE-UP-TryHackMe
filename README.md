@@ -600,6 +600,8 @@ Open another tab and execute the traffic generator script and choose "`TASK-7 Ex
 
 ## 🔶 Operation Mode 4: **PCAP Investigation**
 
+![image](https://github.com/user-attachments/assets/4a29831c-00cc-4793-b1f4-61865f118f2a)
+
 Capabilities of `Snort` are not limited to `sniffing`, `logging` and detecting/preventing the threats. `PCAP` read/investigate mode helps you work with `PCAP` files. Once you have a `PCAP` file and process it with `Snort`, you will receive default traffic statistics with alerts depending on your ruleset.
 
 Reading a `PCAP` without using any additional parameters discussed before will only overview the packets and provide statistics about the file. In most cases, this is not very handy. We are investigating the `PCAP` with `Snort` to benefit from the rules and speed up our investigation process by using the known patterns of threats. 
@@ -614,7 +616,7 @@ Note that we are close to starting to create rules. Therefore, you need to grasp
 | *`--pcap-list=""`* | Read PCAPs provided in command (sapce separated) |
 | *`--pcap-show`* | Show PCAP name on console during processing |
 
-### ✅ Investigating single PCAP with parameter “-r”
+### ✅ Investigating Single PCAP with Parameter “-r”
 
 For test purposes, you can still test the default reading option with `PCAP` by using the following command:
 
@@ -624,7 +626,111 @@ Investigate the `PCAP` with the `configuration file` and see what will happen, a
 
 ![image](https://github.com/user-attachments/assets/28bd15e8-ae51-4abd-a820-43e16d5e6183)
 
-The `ICMP` rule got a hit! As seen in the output given, `Snort` identified the traffic and prompted the alerts according to the ruleset.
+The `ICMP` rule got a hit! As seen in the output given, `Snort` identified the traffic and prompted the alerts according to our ruleset.
+
+### ✅ Investigating Multiple PCAPs with Parameter “--pcap-list”
+
+Investigate multiple `PCAPs` with our configuration file and see what will happen:
+
+![image](https://github.com/user-attachments/assets/11215f81-d10b-4ae4-b1df-602bb0db36f4)
+
+Our `ICMP` rule got a hit! As seen in the output given, `Snort` identified the traffic and prompted the alerts according to our ruleset.
+
+Here is one point to notice: we've processed two `PCAPs`, and there are lots of alerts, so it is impossible to match the alerts with provided `PCAPs` without `Snort's` help. We needed to separate the `PCAP` process to identify the source of the alerts, as shown above.
+
+### ✅ Investigating Multiple PCAPs with Parameter “--pcap-show”
+
+Investigate multiple `PCAPs`, distinguish each one, and see what will happen:
+
+![image](https://github.com/user-attachments/assets/525f906b-68e3-4e03-aeac-b6c969131dfd)
+
+Our `ICMP` rule got a hit! As seen in the given output, `Snort` identified the traffic, distinguished each `PCAP` file and prompted the alerts according to our ruleset.
+
+### ✅ Questions:
+
+Now, use the attached `VM` and navigate to the `Task-Exercises/Exercise-Files/TASK-8` folder to answer the questions!
+
+Investigate the `mx-1.pcap` file with the `default configuration` file by running the command shown below:
+
+![image](https://github.com/user-attachments/assets/180d7125-2df8-46ee-b14f-17091cefeb0b)
+
+**`What is the number of the generated alerts?`**
+
+(Scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/f11046ee-e1b5-44d1-8c1b-9acda0fa741d)
+
+**`Keep reading the output. How many TCP Segments are Queued?`**
+
+(Scroll up to the “`Stream Statistics`” section)
+
+![image](https://github.com/user-attachments/assets/6973c794-b019-41de-b2c6-c5e891d73d13)
+
+**`Keep reading the output. How many "HTTP response headers" were extracted?`**
+
+(Scroll up to the “`HTTP Inspect`” section)
+
+![image](https://github.com/user-attachments/assets/16149ead-aa13-4bb1-8dd0-f7cbd17c414a)
+
+Investigate the `mx-1.pcap` file with the `second configuration` file.
+
+![image](https://github.com/user-attachments/assets/646bf53d-e059-442d-910d-cee83cdb2a12)
+
+**`What is the number of the generated alerts?`**
+
+(Scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/5f26fbb5-b878-4819-9fe2-278dfb90b04e)
+
+Investigate the `mx-2.pcap` file with the `default configuration` file.
+
+![image](https://github.com/user-attachments/assets/9f058b27-cb71-48de-baa2-c402bc29e394)
+
+**`What is the number of the generated alerts?`**
+
+(Scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/6b0cdb78-8b9d-4f34-a021-5ba52e103637)
+
+**`Keep reading the output. What is the number of the detected TCP packets?`**
+
+(Scroll up to the “`Breakdown by protocol`” section)
+
+![image](https://github.com/user-attachments/assets/7d92901c-12c2-4b9a-b3ae-aabf4408b1d0)
+
+Investigate the `mx-2.pcap` and `mx-3.pcap` files with the `default configuration` file.
+
+![image](https://github.com/user-attachments/assets/a09b2e6b-baae-47de-bd34-6130fc4ae20b)
+
+**`What is the number of the generated alerts?`**
+
+(Scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/8832991c-bd38-4573-9972-9a475440b911)
+
+## 🔶 Snort Rule Structure
+
+![image](https://github.com/user-attachments/assets/68261607-9ad0-48d1-831d-71f697e217d2)
+
+Remember, once you create a rule, it is a `local rule` and should be in your "`local.rules`" file. This file is located under "`/etc/snort/rules/local.rules`". 
+
+![image](https://github.com/user-attachments/assets/ef0c0a09-550e-477b-9da8-5d23f971575d)
+
+Each rule should have a type of `action`, `protocol`, `source and destination IP`, `source and destination port` and an `option`. Remember, `Snort` is in `passive mode` by default. So most of the time, you will use `Snort` as an `IDS`. You will need to start "`inline mode`" to turn on `IPS mode`. But before you start playing with `inline mode`, you should be familiar with `Snort` features and rules.
+
+The `Snort` rule structure is easy to understand but difficult to produce. You should be familiar with rule options and related details to create efficient rules. It is recommended to practice `Snort` rules and option details for different use cases.
+
+You can always advance your rule creation skills with different rule options by practicing different use cases and studying `rule option` details in depth. We will focus on two actions: "`alert`" for `IDS mode` and "`reject`" for `IPS mode`.
+
+Rules cannot be processed without a header. `Rule options` are "`optional`" parts. However, it is almost impossible to detect sophisticated attacks without using the `rule options`.
+
+![image](https://github.com/user-attachments/assets/be52dbe2-58b8-4b61-b8f6-8c94ad9b4279)
+
+### ✅ IP and Port Numbers
+
+
+
+
 
 
 
