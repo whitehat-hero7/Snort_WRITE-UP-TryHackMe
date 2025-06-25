@@ -815,7 +815,9 @@ There are rule options that focus on `non-payload data`. These options will help
 
 *`alert tcp any any <> any any (msg: "FLAG TEST"; flags:PA; sid: 100002; rev:1;)`*
 
-🔹 **`Dsize`**: Filtering the packet payload size. `dsize:min<>max`:
+🔹 **`Dsize`**: Filtering the packet payload size. 
+
+`dsize:min<>max`
 
 `dsize:>100`
 
@@ -826,6 +828,82 @@ There are rule options that focus on `non-payload data`. These options will help
 🔹 **`Sameip`**: Filtering the source and destination IP addresses for duplication.
 
 *`alert ip any any <> any any (msg: "SAME-IP TEST"; sameip; sid: 100001; rev:1;)`*
+
+### ✅ Questions
+
+Now, use the attached `VM` and navigate to the `Task-Exercises/Exercise-Files/TASK-9` folder to answer the questions! Note that you can use the command (*`-l`*) to create the logs in the current directory.
+
+![image](https://github.com/user-attachments/assets/4fbea377-58b5-4f95-911d-ff24c1534365)
+
+**`Use "task9.pcap". Write a rule to filter IP ID "35369" and run it against the given pcap file. What is the request name of the detected packet? You may use this command: "snort -c local.rules -A full -l . -r task9.pcap"`**
+
+(You can edit the `local.rules` file with “*`nano`*”)
+
+![image](https://github.com/user-attachments/assets/78969f47-7899-402b-8c88-f90b9d42dffc)
+
+(Write the rule, then exit/save, as shown below)
+
+![image](https://github.com/user-attachments/assets/d48c5204-64cc-4579-ad38-9ac30dbfc041)
+
+(Now run the logging command for `task9.pcap`)
+
+![image](https://github.com/user-attachments/assets/f3a7cf50-2115-45f1-9213-ae77e3bcc0c3)
+
+(Once the logging command finishes, it will create the “`alert`” file. Read the file with “*`cat`*”)
+
+![image](https://github.com/user-attachments/assets/e4256762-9aaf-40cb-8608-baf2656ddd04)
+
+**`Clear the previous alert file and comment out the old rules. Create a rule to filter packets with Syn flag and run it against the given pcap file. What is the number of detected packets?`**
+
+(Remove the “`alert`” file with the command: *`rm alert`*)
+
+(Edit the `local.rules` file with “*`nano`*”. Write the rule, then exit/save, as shown below)
+
+![image](https://github.com/user-attachments/assets/906f1c07-7182-463f-81ba-065d61baf69d)
+
+(Now run the logging command for `task9.pcap`. Then scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/5c191183-6c53-43bf-9c40-aed161738822)
+
+**`Clear the previous alert file and comment out the old rules. Write a rule to filter packets with Push-Ack flags and run it against the given pcap file. What is the number of detected packets?`**
+
+(Remove the “`alert`” file with the command: *`rm alert`*)
+
+(Edit the `local.rules` file with “*`nano`*”. Write the rule, then exit/save, as shown below)
+
+![image](https://github.com/user-attachments/assets/901cbeba-8de7-41bb-8c98-4a24f664db2b)
+
+(Now run the logging command for `task9.pcap`. Then scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/b6cfe650-ac60-4d2d-b3d9-c4ce81193fa6)
+
+**`Clear the previous alert file and comment out the old rules. Create a rule to filter UDP packets with the same source and destination IP and run it against the given pcap file. What is the number of packets that show the same source and destination address?`**
+
+(Remove the “`alert`” file with the command: *`rm alert`*)
+
+(Edit the `local.rules` file with “*`nano`*”. Write the rule, then exit/save, as shown below)
+
+![image](https://github.com/user-attachments/assets/4cb0f1b0-bf3d-4c0c-a7e6-ee528cc1bf78)
+
+(Now run the logging command for `task9.pcap`. Then scroll up to the “`Action Stats`” section)
+
+![image](https://github.com/user-attachments/assets/3ec5775d-5c49-4690-b883-c9856062208d)
+
+**`Case Example - An analyst modified an existing rule successfully. Which rule option must the analyst change after the implementation?`**
+
+(Review the “`General Rule Options`” section)
+
+## 🔶 Conclusion
+
+By this point, we've covered the core structure and syntax of `Snort` rules. A solid understanding of these fundamentals is essential, as it forms the foundation for writing more advanced and effective rules. Before diving into complex rule sets and leveraging additional `Snort` options, it's highly recommended to practice creating and testing basic rules to build confidence and accuracy in real-world detection scenarios.
+
+
+
+
+
+
+
+
 
 
 
