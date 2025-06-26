@@ -1,6 +1,6 @@
 ###### ⚠️ `Disclaimer`: This write-up is intended solely for educational purposes to enhance the learner's understanding of cybersecurity concepts, tools, and methodologies. It is carefully written to encourage hands-on practice scripting/programming and using the terminal/shell to write complex commands and avoid revealing flags, specific answers, credentials, or any information that could spoil the learning experience. All credit for the lab content and challenge design goes to TryHackMe as the original source. Learners are encouraged to complete the lab independently before referring to this guide for support.
 
-# Snort_Write-Up (TryHackMe)
+# Snort (WRITE-UP)-TryHackMe
 
 <img src="https://github.com/user-attachments/assets/2d627e04-f12d-483d-9a5e-77f669534af0">
 
